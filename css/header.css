@@ -1,0 +1,81 @@
+.headers {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.header_right-side {
+    display: flex;
+    align-items: center;
+}
+
+.header_nav ul {
+    display: flex;
+}
+
+.header_nav_item {
+    margin-right: 60px;
+}
+
+.header_title {
+    margin-right: 60px;
+    color: #37447E;
+    font-weight: 900;
+    font-size: 26px;
+}
+
+.header_buttons {
+    display: flex;
+    gap: 26px;
+    align-self: center;
+
+}
+
+.header_learn-more {
+    color: #FFFFFF;
+    background: #111B47;
+    font-weight: 500;
+    font-size: 14px;
+    padding: 10px 30px;
+}
+
+.header_buy-now {
+    color: #111B47;
+    padding: 10px 30px;
+    background: #FFD166;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+@media screen and (min-width: 769px) and (max-width: 1280px) {
+    .headers {
+        width: 75%;
+        padding: 0 1px;
+    }
+
+
+
+}
+
+.header_learn-more,
+.header_buy-now {
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    border-radius: 2px;
+}
+
+.header_learn-more:hover {
+    background-color: #0056b3;
+    transform: scale(1.15);
+}
+
+.header_buy-now:hover {
+    background-color: #FFC53B;
+    transform: scale(1.15);
+}
+
+.header_learn-more:active,
+.header_buy-now:active {
+    transform: scale(0.95);
+}
