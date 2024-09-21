@@ -53,10 +53,15 @@
     .headers {
         width: 75%;
         padding: 0 1px;
+        position: fixed;
+        left: 0;
+        right: 0;
+        top: 0;
+        background: white; 
+        z-index: 1;
+        width: 100vw;
+        box-sizing: border-box;
     }
-
-
-
 }
 
 .header_learn-more,

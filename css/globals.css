@@ -3,7 +3,6 @@
         opacity: 0;
         transform: translateX(100%);
     }
-
     to {
         opacity: 1;
         transform: translateX(0);
@@ -42,14 +41,14 @@ li {
     max-width: 1110px;
 }
 
-@media screen and (min-width: 320px) and (max-width: 768px) {
+@media screen and (min-width: 320px) and (max-width: 768px) { 
     .container {
         padding-left: 15px;
         padding-right: 15px;
     }
 }
 
-@media screen and (min-width: 769px) and (max-width: 1280px) {
+@media screen and (min-width: 769px) and (max-width: 1280px) { 
     .container {
         padding-left: 40px;
         padding-right: 40px;
@@ -57,7 +56,7 @@ li {
 
 }
 
-@media screen and (min-width: 1920px) {
+@media screen and (min-width: 1920px) { 
     .container {
         padding-left: 250px;
         padding-right: 250px;
@@ -65,3 +64,5 @@ li {
     }
 
 }
+
+
