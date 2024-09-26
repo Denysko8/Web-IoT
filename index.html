@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="css/style.css" />
+    <title>TheGoodMusic</title>
+</head>
+
+<body>
+    <header class="header">
+        <h1>TheGoodMusic</h1>
+        <form id="search-form">
+            <div class="input-container">
+                <input type="text" id="search-input" placeholder="Search for a song..." />
+                <button type="submit">Search</button>
+            </div>
+        </form>
+    </header>
+
+    <div class="container">
+        <div class="menu">
+
+            <form id="add-song-form">
+                <h3>Add a Song</h3>
+                <label for="song-name">Song Name</label>
+                <input type="text" id="song-name" name="song-name" required />
+                <label for="artist">Artist</label>
+                <input type="text" id="artist" name="artist" required />
+                <label for="duration">Duration (in seconds)</label>
+                <input type="text" id="duration" name="duration" required />
+                <label for="views">Views on YouTube</label>
+                <input type="text" id="views" name="views" required />
+
+                <button id="add-user">Submit</button>
+            </form>
+            <div class="sort_section">
+                <h4>Sort by duration</h4>
+                <label class="switch">
+                    <input type="checkbox" id="sort-toggle">
+                    <span class="slider round"></span>
+                </label>
+            </div>
+            <div class="counting_views">
+                <button id="count_all_views">Count all YouTube views</button>
+                <label id="total-views-label"></label>
+            </div>
+            <button id="delete-all-cards">Delete all cards</button>
+
+        </div>
+
+
+        <div id="main-content">
+
+        </div>
+
+    </div>
+
+
+
+    <script src="js/script.js"></script>
+</body>
+
+</html>
