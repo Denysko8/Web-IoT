@@ -82,10 +82,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const card = document.createElement('div');
     card.classList.add('song-card');
-    card.dataset.duration = duration; // Store duration as a data attribute
-    card.dataset.views = views; // Store views as a data attribute
-    card.dataset.songName = songName.toLowerCase(); // Store song name as a data attribute
-    card.dataset.artist = artist.toLowerCase(); // Store artist as a data attribute
+    card.dataset.duration = duration; 
+    card.dataset.views = views; 
+    card.dataset.songName = songName.toLowerCase(); 
+    card.dataset.artist = artist.toLowerCase(); 
     card.innerHTML = `
       <h2>${songName}</h2>
       <p>${artist}</p>
@@ -104,11 +104,9 @@ document.addEventListener('DOMContentLoaded', () => {
   sortToggle.addEventListener('click', () => {
     const cards = Array.from(mainContent.getElementsByClassName('song-card'));
     if (isSorted) {
-      // Restore original order
       mainContent.innerHTML = '';
       originalOrder.forEach(card => mainContent.appendChild(card));
     } else {
-      // Sort by duration
       cards.sort((a, b) => parseInt(a.dataset.duration) - parseInt(b.dataset.duration));
       mainContent.innerHTML = '';
       cards.forEach(card => mainContent.appendChild(card));
@@ -118,13 +116,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
   countAllViewsButton.addEventListener('click', () => {
     const cards = Array.from(mainContent.getElementsByClassName('song-card'));
-    const totalViews = cards.reduce((sum, card) => sum + parseInt(card.dataset.views), 0);
+    const visibleCards = cards.filter(card => card.style.display !== 'none');
+    const totalViews = visibleCards.reduce((sum, card) => sum + parseInt(card.dataset.views), 0);
     totalViewsLabel.textContent = `Total Views: ${totalViews}`;
   });
 
   searchForm.addEventListener('submit', (event) => {
     event.preventDefault();
-    const searchTerm = searchInput.value.toLowerCase();
+    const searchTerm = searchInput.value.toLowerCase().replace(/\s+/g, '');
     const cards = Array.from(mainContent.getElementsByClassName('song-card'));
     cards.forEach(card => {
       const songName = card.dataset.songName.toLowerCase();
@@ -140,5 +139,7 @@ document.addEventListener('DOMContentLoaded', () => {
   deleteAllCardsButton.addEventListener('click', () => {
     mainContent.innerHTML = '';
     originalOrder = [];
+    
   });
+
 });
