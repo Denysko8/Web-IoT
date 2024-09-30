@@ -7,12 +7,11 @@ body {
     font-family: Arial, sans-serif;
     display: flex;
     flex-direction: column;
-
     min-height: 100%;
     margin: 0;
 }
 
-.header{
+.header {
     background-color: #111;
     color: #fff;
     padding: 5px 40px;
@@ -21,6 +20,24 @@ body {
     align-items: center;
 }
 
+.header nav {
+    display: flex;
+    gap: 10px;
+}
+
+.header-button {
+    padding: 10px 20px;
+    text-decoration: none;
+    color: white;
+}
+
+.red-background {
+    background-color: red;
+}
+
+.search-form-right {
+    margin-left: auto;
+}
 
 #search-form {
     width: 100%;
@@ -71,22 +88,20 @@ body {
     border-right: 1px solid #111;
     display: flex;
     flex-direction: column;
-    
 }
 
-#add-song-form{
+#add-song-form {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    border-bottom: 1px solid #111;
     padding: 30px 20px;
 }
 
-#add-song-form h3{
+#add-song-form h3 {
     font-size: 30px;
 }
 
-#add-user{
+#add-user {
     margin-top: 10px;
     cursor: pointer;
     background-color: #2fac2f;
@@ -97,7 +112,6 @@ body {
     font-weight: bold;
     font-size: 18px;
     color: #fff;
-
 }
 
 .song-card {
@@ -112,7 +126,6 @@ body {
     width: auto;
     max-height: 300px;
     max-width: 300px;
-    
 }
 
 .sort_section {
@@ -120,7 +133,7 @@ body {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    border-bottom: 1px solid #111;;
+    border-bottom: 1px solid #111;
 }
 
 .sort_section h4 {
@@ -180,7 +193,6 @@ input:checked+.slider:before {
     transform: translateX(26px);
 }
 
-
 .slider.round {
     border-radius: 34px;
 }
@@ -188,7 +200,6 @@ input:checked+.slider:before {
 .slider.round:before {
     border-radius: 50%;
 }
-
 
 .counting_views {
     display: flex;
@@ -207,7 +218,6 @@ input:checked+.slider:before {
     margin-top: 20px;
     font-weight: bold;
     font-size: 14px;
-
 }
 
 #total-views-label {
@@ -234,46 +244,20 @@ input:checked+.slider:before {
     flex-grow: 1;
 }
 
-
-/*
-h1 {
-    align-self: flex-start;
-}
-
-
-
-h2 {
-    border-bottom: 1px solid #111;
-    padding-bottom: 10px;
+.menu.center-form {
     display: flex;
-    justify-content: space-between;
-    font-weight: 300;
-    margin: 0 0 20px;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
 }
 
-h3 {
-    background-color: #fff;
-    border-bottom: 1px solid #111;
-    padding: 10px;
+.menu.center-form form {
+    width: 300px;
     display: flex;
-    justify-content: space-between;
-    font-weight: 300;
-    margin: 20px 0 0;
-}
-*/
-
-
-
-.edit-field {
-    margin-bottom: 5px;
+    flex-direction: column;
+    gap: 10px;
 }
 
-.edit-field label {
-    display: block;
-    margin-bottom: 5px;
-}
-
-.edit-field input {
-    width: 100%;
-    box-sizing: border-box;
+.container.no-borders {
+    border: none;
 }
