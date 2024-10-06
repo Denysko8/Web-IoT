@@ -1,0 +1,270 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background: #f4f4f4;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+    margin: 0;
+}
+
+.header {
+    background-color: #111;
+    color: #fff;
+    padding: 5px 40px;
+    display: flex;
+    align-items: center;
+}
+
+.header nav {
+    display: flex;
+    gap: 10px;
+    margin-left: 100px;
+}
+
+.header-button {
+    padding: 10px 20px;
+    text-decoration: none;
+    color: white;
+}
+
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.button-container {
+    display: flex;
+    gap: 15px;
+}
+
+.search-form {
+    right: 0%;
+}
+
+#search-form {
+    width: 100%;
+    max-width: 400px;
+    margin: 20px auto;
+    right: 0%;
+}
+
+#search-form .input-container {
+    position: relative;
+    width: 100%;
+    
+}
+
+#search-form input {
+    width: 100%;
+    padding: 10px 80px 10px 20px;
+    border-radius: 30px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+#search-form button {
+    position: absolute;
+    right: 0;
+    top: 0;
+    background-color: #fa6a6a;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 18px;
+    border-radius: 30px;
+    height: 100%;
+    cursor: pointer;
+}
+
+.container {
+    display: flex;
+    padding: 20px;
+    margin: 0 auto;
+    max-width: 100%;
+    width: 100vw;
+}
+
+.menu {
+    padding: 0px 20px;
+    width: 300px;
+    height: 100vh;
+    border-right: 1px solid #111;
+    display: flex;
+    flex-direction: column;
+}
+
+#add-song-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 30px 20px;
+}
+
+#add-song-form h3 {
+    font-size: 30px;
+}
+
+#add-user {
+    margin-top: 10px;
+    cursor: pointer;
+    background-color: #2fac2f;
+    border: 0px;
+    border-radius: 5px;
+    width: 100%;
+    padding: 10px;
+    font-weight: bold;
+    font-size: 18px;
+    color: #fff;
+}
+
+.song-card {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 50px;
+    margin: 10px 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    flex: 1 1 calc(33.333% - 20px);
+    height: auto;
+    width: auto;
+    max-height: 300px;
+    max-width: 300px;
+}
+
+.sort_section {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #111;
+}
+
+.sort_section h4 {
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 24px auto;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+}
+
+input:checked+.slider {
+    background-color: #2196F3;
+}
+
+input:focus+.slider {
+    box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked+.slider:before {
+    transform: translateX(26px);
+}
+
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+.counting_views {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#count_all_views {
+    cursor: pointer;
+    background-color: #ffffff;
+    border: solid 1px;
+    border-radius: 5px;
+    width: 100%;
+    padding: 18px;
+    margin-top: 20px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+#total-views-label {
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+#delete-all-cards {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-top: 50px;
+    border-radius: 5px;
+}
+
+#main-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-left: 15px;
+    flex-grow: 1;
+}
+
+.menu.center-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%; 
+}
+
+.menu.center-form form {
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.container.no-borders {
+    border: none;
+}
