@@ -16,13 +16,13 @@ body {
     color: #fff;
     padding: 5px 40px;
     display: flex;
-    justify-content: space-between;
     align-items: center;
 }
 
 .header nav {
     display: flex;
     gap: 10px;
+    margin-left: 100px;
 }
 
 .header-button {
@@ -31,23 +31,34 @@ body {
     color: white;
 }
 
-.red-background {
-    background-color: red;
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
 }
 
-.search-form-right {
-    margin-left: auto;
+.button-container {
+    display: flex;
+    gap: 15px;
+}
+
+.search-form {
+    right: 0%;
 }
 
 #search-form {
     width: 100%;
     max-width: 400px;
     margin: 20px auto;
+    right: 0%;
 }
 
 #search-form .input-container {
     position: relative;
     width: 100%;
+    
 }
 
 #search-form input {
@@ -163,7 +174,6 @@ body {
     right: 0;
     bottom: 0;
     background-color: #ccc;
-    -webkit-transition: .4s;
     transition: .4s;
 }
 
@@ -175,7 +185,6 @@ body {
     left: 4px;
     bottom: 4px;
     background-color: white;
-    -webkit-transition: .4s;
     transition: .4s;
 }
 
@@ -188,8 +197,6 @@ input:focus+.slider {
 }
 
 input:checked+.slider:before {
-    -webkit-transform: translateX(26px);
-    -ms-transform: translateX(26px);
     transform: translateX(26px);
 }
 
@@ -248,7 +255,7 @@ input:checked+.slider:before {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    width: 100%; 
 }
 
 .menu.center-form form {

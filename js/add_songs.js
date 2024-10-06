@@ -31,14 +31,11 @@ document.addEventListener('DOMContentLoaded', () => {
             views: views
         };
 
-        // Save song to local storage
         saveSongToLocalStorage(song);
 
-        // Reset the form
         addSongForm.reset();
         alert('Song added successfully!');
 
-        // Redirect to the main page
         window.location.href = 'index.html';
     });
 
