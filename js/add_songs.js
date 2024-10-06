@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const addSongForm = document.getElementById('add-song-form');
 
-    addSongForm.addEventListener('submit', (event) => {
+    addSongForm.addEventListener('submit', async (event) => {
         event.preventDefault();
 
         const songName = document.getElementById('song-name').value;
@@ -31,17 +31,26 @@ document.addEventListener('DOMContentLoaded', () => {
             views: views
         };
 
-        saveSongToLocalStorage(song);
+        try {
+            const response = await fetch('http://localhost:3000/songs', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(song)
+            });
 
-        addSongForm.reset();
-        alert('Song added successfully!');
-
-        window.location.href = 'index.html';
+            if (response.ok) {
+                alert('Song added successfully!');
+                window.location.href = 'index.html';
+            } else {
+                const errorText = await response.text();
+                console.error('Failed to add song:', errorText);
+                alert('Failed to add song.');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Failed to add song.');
+        }
     });
-
-    const saveSongToLocalStorage = (song) => {
-        let songs = JSON.parse(localStorage.getItem('songs')) || [];
-        songs.push(song);
-        localStorage.setItem('songs', JSON.stringify(songs));
-    };
 });
