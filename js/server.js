@@ -21,7 +21,22 @@ app.post('/songs', (req, res) => {
 });
 
 app.get('/songs', (req, res) => {
-    res.json(songs);
+    let { searchQuery = '', sortByDuration = 'false' } = req.query;
+    searchQuery = searchQuery.toLowerCase();
+    sortByDuration = sortByDuration === 'true';
+
+    let filteredSongs = songs.filter(song =>
+        song.name.toLowerCase().includes(searchQuery) ||
+        song.artist.toLowerCase().includes(searchQuery)
+    );
+
+    if (sortByDuration) {
+        filteredSongs.sort((a, b) => a.duration - b.duration);
+    }
+
+    const totalViews = filteredSongs.reduce((sum, song) => sum + parseInt(song.views), 0);
+
+    res.json({ songs: filteredSongs, totalViews });
 });
 
 app.put('/songs/:id', (req, res) => {

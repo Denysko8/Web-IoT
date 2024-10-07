@@ -6,33 +6,44 @@ document.addEventListener('DOMContentLoaded', () => {
     const totalViewsLabel = document.getElementById('total-views-label');
     const sortToggle = document.getElementById('sort-toggle');
 
+    function saveSongsToLocalStorage(songs) {
+        localStorage.setItem('songs', JSON.stringify(songs));
+    }
+
+    function getSongsFromLocalStorage() {
+        const songs = localStorage.getItem('songs');
+        return songs ? JSON.parse(songs) : [];
+    }
+
     async function loadSongsFromAPI(searchQuery = '', sortByDuration = false) {
-        console.log('Loading songs...');
-        try {
-            const response = await fetch('http://localhost:3000/songs');
-            let songs = await response.json();
-            console.log('Fetched songs:', songs);
+        if (navigator.onLine) {
+            try {
+                const response = await fetch(`http://localhost:3000/songs?searchQuery=${encodeURIComponent(searchQuery)}&sortByDuration=${sortByDuration}`);
+                const data = await response.json();
+                const { songs, totalViews } = data;
 
-            mainContent.innerHTML = '';
-
-            songs = songs.filter(song =>
-                song.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                song.artist.toLowerCase().includes(searchQuery.toLowerCase())
-            );
-
-            if (sortByDuration) {
-                songs.sort((a, b) => a.duration - b.duration);
+                saveSongsToLocalStorage(songs);
+                displaySongs(songs, totalViews);
+            } catch (error) {
+                console.error('Error loading songs:', error);
             }
-
-            songs.forEach((song) => {
-                const songCard = createSongCard(song);
-                mainContent.appendChild(songCard);
-            });
-
-            countAllViews(songs);
-        } catch (error) {
-            console.error('Error loading songs:', error);
+        } else {
+            const songs = getSongsFromLocalStorage();
+            const filteredSongs = filterAndSortSongs(songs, searchQuery, sortByDuration);
+            const totalViews = calculateTotalViews(filteredSongs);
+            displaySongs(filteredSongs, totalViews);
         }
+    }
+
+    function displaySongs(songs, totalViews) {
+        mainContent.innerHTML = '';
+
+        songs.forEach((song) => {
+            const songCard = createSongCard(song);
+            mainContent.appendChild(songCard);
+        });
+
+        totalViewsLabel.textContent = `Total Views: ${totalViews}`;
     }
 
     function createSongCard(song) {
@@ -87,24 +98,37 @@ document.addEventListener('DOMContentLoaded', () => {
                     views: newViews
                 };
 
-                try {
-                    const response = await fetch(`http://localhost:3000/songs/${song.id}`, {
-                        method: 'PUT',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify(updatedSong)
-                    });
+                if (navigator.onLine) {
+                    try {
+                        const response = await fetch(`http://localhost:3000/songs/${song.id}`, {
+                            method: 'PUT',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(updatedSong)
+                        });
 
-                    if (response.ok) {
+                        if (response.ok) {
+                            alert('Song updated successfully!');
+                            loadSongsFromAPI();
+                        } else {
+                            alert('Failed to update song.');
+                        }
+                    } catch (error) {
+                        console.error('Error:', error);
+                        alert('Failed to update song.');
+                    }
+                } else {
+                    const songs = getSongsFromLocalStorage();
+                    const index = songs.findIndex(s => s.id === song.id);
+                    if (index !== -1) {
+                        songs[index] = { id: song.id, ...updatedSong };
+                        saveSongsToLocalStorage(songs);
                         alert('Song updated successfully!');
                         loadSongsFromAPI();
                     } else {
                         alert('Failed to update song.');
                     }
-                } catch (error) {
-                    console.error('Error:', error);
-                    alert('Failed to update song.');
                 }
             });
 
@@ -114,61 +138,65 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         card.querySelector('.delete-button').addEventListener('click', async () => {
-            try {
-                const response = await fetch(`http://localhost:3000/songs/${song.id}`, {
-                    method: 'DELETE'
-                });
+            if (navigator.onLine) {
+                try {
+                    const response = await fetch(`http://localhost:3000/songs/${song.id}`, {
+                        method: 'DELETE'
+                    });
 
-                if (response.ok) {
+                    if (response.ok) {
+                        alert('Song deleted successfully!');
+                        loadSongsFromAPI();
+                    } else {
+                        alert('Failed to delete song.');
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert('Failed to delete song.');
+                }
+            } else {
+                const songs = getSongsFromLocalStorage();
+                const index = songs.findIndex(s => s.id === song.id);
+                if (index !== -1) {
+                    songs.splice(index, 1);
+                    saveSongsToLocalStorage(songs);
                     alert('Song deleted successfully!');
                     loadSongsFromAPI();
                 } else {
                     alert('Failed to delete song.');
                 }
-            } catch (error) {
-                console.error('Error:', error);
-                alert('Failed to delete song.');
             }
         });
     }
 
-    function countAllViews(songs) {
-        let totalViews = songs.reduce((total, song) => total + parseInt(song.views || 0), 0);
-        totalViewsLabel.textContent = `Total Views: ${totalViews}`;
-    }
-
-    console.log('Delete all button element:', deleteAllCardsButton);
-
     if (deleteAllCardsButton) {
-        console.log('Adding click event listener to delete all button');
         deleteAllCardsButton.addEventListener('click', async () => {
-            console.log('Delete all button clicked');
             if (confirm('Are you sure you want to delete all songs?')) {
-                try {
-                    console.log('Sending delete request...');
-                    const response = await fetch('http://localhost:3000/songs', {
-                        method: 'DELETE'
-                    });
+                if (navigator.onLine) {
+                    try {
+                        const response = await fetch('http://localhost:3000/songs', {
+                            method: 'DELETE'
+                        });
 
-                    console.log('Delete response:', response);
-
-                    if (response.ok) {
-                        console.log('Delete successful');
-                        mainContent.innerHTML = '';
-                        totalViewsLabel.textContent = 'Total Views: 0';
-                        alert('All songs deleted successfully!');
-                    } else {
-                        console.error('Delete failed:', await response.text());
+                        if (response.ok) {
+                            mainContent.innerHTML = '';
+                            totalViewsLabel.textContent = 'Total Views: 0';
+                            alert('All songs deleted successfully!');
+                        } else {
+                            alert('Failed to delete all songs.');
+                        }
+                    } catch (error) {
+                        console.error('Error deleting all songs:', error);
                         alert('Failed to delete all songs.');
                     }
-                } catch (error) {
-                    console.error('Error deleting all songs:', error);
-                    alert('Failed to delete all songs.');
+                } else {
+                    localStorage.removeItem('songs');
+                    mainContent.innerHTML = '';
+                    totalViewsLabel.textContent = 'Total Views: 0';
+                    alert('All songs deleted successfully!');
                 }
             }
         });
-    } else {
-        console.error('Delete all button not found in the DOM');
     }
 
     if (sortToggle) {
