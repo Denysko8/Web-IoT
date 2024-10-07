@@ -52,26 +52,83 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function addEventListeners(card, song) {
-        const deleteButton = card.querySelector('.delete-button');
-        const editButton = card.querySelector('.edit-button');
+        card.querySelector('.edit-button').addEventListener('click', () => {
+            card.innerHTML = `
+                <div class="edit-field">
+                    <label for="edit-song-name">Song Name</label>
+                    <input type="text" id="edit-song-name" value="${song.name}">
+                </div>
+                <div class="edit-field">
+                    <label for="edit-artist">Artist</label>
+                    <input type="text" id="edit-artist" value="${song.artist}">
+                </div>
+                <div class="edit-field">
+                    <label for="edit-duration">Duration (in seconds)</label>
+                    <input type="number" id="edit-duration" value="${song.duration}" min="1">
+                </div>
+                <div class="edit-field">
+                    <label for="edit-views">Views on YouTube</label>
+                    <input type="number" id="edit-views" value="${song.views}" min="0">
+                </div>
+                <button class="save-button">Save</button>
+                <button class="cancel-button">Cancel</button>
+            `;
 
-        deleteButton.addEventListener('click', async () => {
+            card.querySelector('.save-button').addEventListener('click', async () => {
+                const newSongName = document.getElementById('edit-song-name').value;
+                const newArtist = document.getElementById('edit-artist').value;
+                const newDuration = document.getElementById('edit-duration').value;
+                const newViews = document.getElementById('edit-views').value;
+
+                const updatedSong = {
+                    name: newSongName,
+                    artist: newArtist,
+                    duration: newDuration,
+                    views: newViews
+                };
+
+                try {
+                    const response = await fetch(`http://localhost:3000/songs/${song.id}`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(updatedSong)
+                    });
+
+                    if (response.ok) {
+                        alert('Song updated successfully!');
+                        loadSongsFromAPI();
+                    } else {
+                        alert('Failed to update song.');
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert('Failed to update song.');
+                }
+            });
+
+            card.querySelector('.cancel-button').addEventListener('click', () => {
+                loadSongsFromAPI();
+            });
+        });
+
+        card.querySelector('.delete-button').addEventListener('click', async () => {
             try {
                 const response = await fetch(`http://localhost:3000/songs/${song.id}`, {
                     method: 'DELETE'
                 });
 
                 if (response.ok) {
-                    card.remove();
+                    alert('Song deleted successfully!');
                     loadSongsFromAPI();
+                } else {
+                    alert('Failed to delete song.');
                 }
             } catch (error) {
-                console.error('Error deleting song:', error);
+                console.error('Error:', error);
+                alert('Failed to delete song.');
             }
-        });
-
-        editButton.addEventListener('click', () => {
-            // ... existing edit functionality ...
         });
     }
 
