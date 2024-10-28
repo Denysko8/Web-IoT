@@ -7,11 +7,11 @@ function Header(){
     return (
         <header className="header">
             <img className="logo" src={logo} alt="Logo" />
+            <p className="title-name">RadioDream</p>
             <nav className="nav-container">
                 <ul className="nav-links">
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Catalog</a></li>
-                    <li><a href="#">Cart</a></li>
+                    <li><a href="#">Catalogue</a></li>
+                    <li><a href="#">Basket</a></li>
                 </ul>
             </nav>
         </header>

@@ -14,7 +14,7 @@ function CatalogPreview() {
                     <h3>In Rainbows</h3>
                     <p>Radiohead</p>
                     <p>Art Rock</p>
-                    <p className="price">$10</p>
+                    <p className="price">$20</p>
                     <button>Buy</button>
                 </div>
                 <div className="catalog-item">
@@ -30,7 +30,7 @@ function CatalogPreview() {
                     <h3>Demon Days</h3>
                     <p>Gorillaz</p>
                     <p>Alternative Hip Hop</p>
-                    <p className="price">$20</p>
+                    <p className="price">$10</p>
                     <button>Buy</button>
                 </div>
             </div>

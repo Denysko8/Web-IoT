@@ -7,7 +7,7 @@ function Footer() {
         <footer className="footer">
             <div className="footer-content">
                 <div className="branding">
-                    <h3>In Rainsongs</h3>
+                    <h3>RadioDream</h3>
                 </div>
                 <div className="footer-logo">
                     <img src={logo} alt="Logo" />
@@ -17,7 +17,6 @@ function Footer() {
                     <a href="#"><i className="fab fa-twitter"></i></a>
                 </div>
             </div>
-            <hr />
             <div className="copyright">
                 <p>2024 IoT © Copyright all rights reserved</p>
             </div>

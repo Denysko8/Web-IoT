@@ -1,20 +1,10 @@
 .hero {
     display: flex;
     flex-direction: column;
-    /* Arrange items in a column */
     justify-content: center;
-    /* Center items vertically */
     align-items: center;
-    /* Center items horizontally */
     padding: 2rem;
     text-align: center;
-    /* Center text */
-}
-
-.hero-image img {
-    max-width: 300px;
-    margin-bottom: 1rem;
-    /* Add some space below the image */
 }
 
 .hero-content {
