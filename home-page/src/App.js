@@ -1,8 +1,8 @@
 import React from 'react';
-import Header from './components/header';
-import Hero from './components/hero';
-import CatalogPreview from './components/CatalogPreview';
-import Footer from './components/footer';
+import Header from './components/Header/header';
+import Hero from './components/Hero/hero';
+import CatalogPreview from './components/Calatog-Preview/CatalogPreview';
+import Footer from './components/Footer/footer';
 import './App.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 

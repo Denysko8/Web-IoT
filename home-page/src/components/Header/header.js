@@ -1,6 +1,6 @@
 import React from "react";
 import './header.css';
-import logo from '../images/logo.png';
+import logo from '../../images/logo.png';
 
 function Header(){
 
@@ -10,8 +10,8 @@ function Header(){
             <p className="title-name">RadioDream</p>
             <nav className="nav-container">
                 <ul className="nav-links">
-                    <li><a href="#">Catalogue</a></li>
-                    <li><a href="#">Basket</a></li>
+                    <li><a href="#">Catalog</a></li>
+                    <li><a href="#">Cart</a></li>
                 </ul>
             </nav>
         </header>
