@@ -2,11 +2,13 @@
     padding: 20px;
     background-color: #f9f9f9;
     margin-bottom: 60px;
+    margin-left: 150px;
+    margin-right: 150px;
 }
 
 .catalog-title {
     text-align: center;
-    font-size: 2.5em;
+    font-size: 2em;
     margin-bottom: 50px;
     color: #333;
 }
@@ -17,4 +19,3 @@
     flex-wrap: wrap;
     text-align: center;
 }
-

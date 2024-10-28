@@ -1,5 +1,6 @@
 import React from 'react';
 import './AlbumItem.css';
+import PrimaryButton from '../Catalog-Page/PrimaryButton';
 
 function AlbumItem({ img_path, album_name, artist_name, genre, price }) {
     return (
@@ -11,7 +12,7 @@ function AlbumItem({ img_path, album_name, artist_name, genre, price }) {
             <p>{artist_name}</p>
             <p>{genre}</p>
             <p className="price">{price}</p>
-            <button>Buy</button>
+            <PrimaryButton onClick={""}>View More</PrimaryButton>
         </div>
     );
 }

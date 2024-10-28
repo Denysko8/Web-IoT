@@ -1,3 +1,20 @@
+.albums-page {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.albums-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 20px;
+    flex: 1;
+    gap: 30px;
+}
+
 .catalog-item {
     width: 30%;
     background-color: #f4f4f4;
@@ -5,17 +22,13 @@
     border-radius: 5px;
     padding: 10px;
     text-align: center;
-    justify-items: center;
+
 }
 
-.item-image {
-    max-width: 400px;
-    max-height: 400px;
-    margin-bottom: 1rem;
-    height: 250px;
-    width: 250px;
+.item-image img {
+    max-width: 100%;
+    height: auto;
 }
-
 
 h3 {
     font-size: 1.2rem;

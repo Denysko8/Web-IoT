@@ -1,9 +1,9 @@
 import React from 'react';
 import './CatalogPreview.css';
-import AlbumItem from '../Album-Items/AlbumItem';
-import Album1 from '../../images/in_rainbows.jfif';
-import Album2 from '../../images/dummy.jfif';
-import Album3 from '../../images/demon_days.jpg';
+import AlbumItem from '../../Album-Items/AlbumItem';
+import Album1 from '../../../images/in_rainbows.png';
+import Album2 from '../../../images/dummy.jpg';
+import Album3 from '../../../images/demon_days.jpg';
 
 const album_list = [
     { id: 1, img_path: Album1, album_name: "In Rainbows", artist_name: "Radiohead", genre: "Art Rock", price: "$20" },

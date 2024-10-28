@@ -1,21 +1,22 @@
 import React from "react";
+import { Link } from 'react-router-dom';
 import './header.css';
 import logo from '../../images/logo.png';
 
-function Header(){
-
+function Header() {
     return (
         <header className="header">
             <img className="logo" src={logo} alt="Logo" />
-            <p className="title-name">RadioDream</p>
+            <h1 className="title-name">RadioDream</h1>
             <nav className="nav-container">
                 <ul className="nav-links">
-                    <li><a href="#">Catalog</a></li>
-                    <li><a href="#">Cart</a></li>
+                    <li><Link to="/">Home</Link></li>
+                    <li><Link to="/catalog">Catalog</Link></li>
+                    <li><Link to="/cart">Cart</Link></li>
                 </ul>
             </nav>
         </header>
     );
 }
 
-export default Header
+export default Header;

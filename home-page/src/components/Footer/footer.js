@@ -17,9 +17,6 @@ function Footer() {
                     <a href="#"><i className="fab fa-twitter"></i></a>
                 </div>
             </div>
-            <div className="copyright">
-                <p>2024 IoT © Copyright all rights reserved</p>
-            </div>
         </footer>
     );
 }
