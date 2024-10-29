@@ -1,3 +1,3 @@
-# 7-rd lab
+# 7-th lab
 
 Creation of Catalog Page.
