@@ -1,0 +1,40 @@
+.control-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    margin-top: 30px;
+    flex-direction: column;
+}
+
+.search-input {
+    padding: 5px;
+    font-size: 1rem;
+    border-radius: 15px;
+    border: 1px solid #000000;
+    text-align: center;
+}
+
+.filter-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.sort-button {
+    padding: 5px 10px;
+    font-size: 1rem;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    background-color: #ff8f52; 
+    color: white;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.sort-button:hover {
+    background-color: #d14900;
+}

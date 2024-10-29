@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './App.css';
 import Header from './components/Header/header';
 import Footer from './components/Footer/footer';
-import AlbumsPage from './components/Catalog-Page/Catalog-Section/CatalogSection';
+import CatalogPage from './components/Catalog-Page/CatalogPage';
 import HomePage from './components/Home-Page/HomePage';
 
 function App() {
@@ -13,7 +13,7 @@ function App() {
         <Header />
         <Routes>
           <Route path="/" element={<HomePage/>} />
-          <Route path="/catalog" element={<AlbumsPage/>} />
+          <Route path="/catalog" element={<CatalogPage/>} />
         </Routes>
         <Footer />
       </div>
