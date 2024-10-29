@@ -1,0 +1,8 @@
+/* Add this to homepage.css */
+.button-container {
+    display: flex;
+    justify-content: center;
+    /* Center horizontally */
+    margin: 20px 0;
+    /* Optional: Add some spacing above and below */
+}

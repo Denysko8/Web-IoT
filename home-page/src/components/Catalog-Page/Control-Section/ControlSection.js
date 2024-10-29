@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './ControlSection.css';
 import Select from '../Select'; // Make sure to import the Select component
 
@@ -13,6 +13,13 @@ const ControlSection = ({
     selectedDecade, 
     onDecadeChange 
 }) => {
+    const [currentSort, setCurrentSort] = useState('');
+
+    const handleSortChange = (field) => {
+        setCurrentSort(field);
+        onSortChange(field);
+    };
+
     return (
         <div className="control-section">
             <input
@@ -24,8 +31,18 @@ const ControlSection = ({
             />
             <div className="sorting-section">
                 <span>Sort by:</span>
-                <button className="sort-button" onClick={() => onSortChange('year')}>year</button>
-                <button className="sort-button" onClick={() => onSortChange('price')}>price</button>
+                <button 
+                    className={`sort-button ${currentSort === 'year' ? 'active' : ''}`} 
+                    onClick={() => handleSortChange('year')}
+                >
+                    year
+                </button>
+                <button 
+                    className={`sort-button ${currentSort === 'price' ? 'active' : ''}`} 
+                    onClick={() => handleSortChange('price')}
+                >
+                    price
+                </button>
             </div>
             <div className="filter-section">
                 <span>Filter by Genre:</span>

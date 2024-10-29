@@ -2,7 +2,7 @@ import React from 'react';
 
 const PrimaryButton = ({ onClick, children }) => {
     return (
-        <button onClick={onClick}>
+        <button className="primary-button" onClick={onClick}>
             {children}
         </button>
     );

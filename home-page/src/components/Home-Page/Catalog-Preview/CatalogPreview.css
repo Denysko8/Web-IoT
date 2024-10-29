@@ -4,6 +4,8 @@
     margin-bottom: 60px;
     margin-left: 150px;
     margin-right: 150px;
+    justify-content: center;
+    align-items: center;
 }
 
 .catalog-title {
@@ -18,4 +20,10 @@
     justify-content: space-around;
     flex-wrap: wrap;
     text-align: center;
+    gap: 20px;
+}
+
+button {
+    margin-top: 20px;
+    font-size: medium;
 }

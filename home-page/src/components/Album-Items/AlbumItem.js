@@ -1,8 +1,9 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './AlbumItem.css';
 import PrimaryButton from '../Catalog-Page/PrimaryButton';
 
-function AlbumItem({ img_path, album_name, artist_name, year, genre, price }) {
+function AlbumItem({ id, img_path, album_name, artist_name, year, genre, price }) {
     return (
         <div className="catalog-item">
             <div className="item-image">
@@ -13,7 +14,9 @@ function AlbumItem({ img_path, album_name, artist_name, year, genre, price }) {
             <p>{year}</p>
             <p>{genre}</p>
             <p className="price">{price}</p>
-            <PrimaryButton onClick={""}>View More</PrimaryButton>
+            <Link to={`/item/${id}`}>
+                <PrimaryButton>I want this!</PrimaryButton>
+            </Link>
         </div>
     );
 }

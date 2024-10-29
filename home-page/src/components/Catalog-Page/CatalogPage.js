@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import ControlSection from './Control-Section/ControlSection';
 import CatalogSection from './Catalog-Section/CatalogSection';
 
-const CatalogPage = () => {
+const CatalogPage = ({ album_data }) => {
     const genreOptions = ['All genres', 'Rock', 'Metal', 'Hip Hop'];
     const decadeOptions = ['All decades', '1970s', '1980s', '1990s', '2000s', '2010s', '2020s'];
 
@@ -16,7 +16,6 @@ const CatalogPage = () => {
     };
 
     const handleSortChange = (criterion) => {
-        // Toggle sorting: If the same button is clicked again, reset the sort criterion
         setSortCriterion((prev) => (prev === criterion ? '' : criterion));
     };
 
@@ -42,6 +41,7 @@ const CatalogPage = () => {
                 onDecadeChange={handleDecadeChange}
             />
             <CatalogSection
+                album_data={album_data}
                 searchValue={searchValue}
                 sortCriterion={sortCriterion}
                 selectedGenre={selectedGenre}

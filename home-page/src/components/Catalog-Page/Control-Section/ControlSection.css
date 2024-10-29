@@ -29,6 +29,7 @@
     align-items: center;
     gap: 10px;
     margin-top: 10px;
+    flex-direction: column;
 }
 
 .sort-button {
@@ -36,12 +37,12 @@
     font-size: 1rem;
     cursor: pointer;
     border: 1px solid #ccc;
-    background-color: #ff8f52; /* Red buttons */
+    background-color: #f66300; /* Red buttons */
     color: white; /* White text for better contrast */
     border-radius: 5px;
     transition: background-color 0.3s ease;
 }
 
 .sort-button:hover {
-    background-color: #ff5900; /* Darker red on hover */
+    background-color: #eb1f00; /* Darker red on hover */
 }

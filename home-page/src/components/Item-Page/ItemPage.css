@@ -1,0 +1,39 @@
+.item-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    max-width: 600px;
+    max-height: 900px;
+    margin: 20px auto;
+    gap: 2px;
+    /* This will create spacing between the child elements */
+}
+
+.item-page img {
+    max-width: 280px;
+    height: auto;
+    border-radius: 5px;
+}
+
+.item-page h2 {
+    font-size: 1.8rem;
+}
+
+.item-page p {
+    font-size: 1.2rem;
+    color: #333;
+}
+
+/* Remove margin from .buy-now and use flex properties instead */
+.item-page button {
+    font-size: large;
+    /* Removed margin-top and margin-bottom */
+    margin-top: 20px;
+    /* This pushes the button to the bottom of the flex container */
+    margin-bottom: 10px;
+    /* Keep this if you want spacing below the button */
+}
