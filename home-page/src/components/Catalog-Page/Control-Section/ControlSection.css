@@ -16,6 +16,13 @@
     text-align: center;
 }
 
+.sorting-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+}
 .filter-section {
     display: flex;
     justify-content: center;
@@ -29,12 +36,12 @@
     font-size: 1rem;
     cursor: pointer;
     border: 1px solid #ccc;
-    background-color: #ff8f52; 
-    color: white;
+    background-color: #ff8f52; /* Red buttons */
+    color: white; /* White text for better contrast */
     border-radius: 5px;
     transition: background-color 0.3s ease;
 }
 
 .sort-button:hover {
-    background-color: #d14900;
+    background-color: #ff5900; /* Darker red on hover */
 }
