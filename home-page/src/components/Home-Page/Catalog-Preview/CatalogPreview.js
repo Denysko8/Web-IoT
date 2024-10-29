@@ -6,9 +6,9 @@ import Album2 from '../../../images/dummy.jpg';
 import Album3 from '../../../images/demon_days.jpg';
 
 const album_list = [
-    { id: 1, img_path: Album1, album_name: "In Rainbows", artist_name: "Radiohead", genre: "Art Rock", price: "$20" },
-    { id: 2, img_path: Album2, album_name: "Dummy", artist_name: "Portishead", genre: "Trip Hop", price: "$15" },
-    { id: 3, img_path: Album3, album_name: "Demon Days", artist_name: "Gorillaz", genre: "Alternative Hip Hop", price: "$10" }
+    { id: 1, img_path: Album1, album_name: "In Rainbows", artist_name: "Radiohead", year : '2007', genre: "Art Rock", price: "$20" },
+    { id: 2, img_path: Album2, album_name: "Dummy", artist_name: "Portishead", year : '1994', genre: "Trip Hop", price: "$15" },
+    { id: 3, img_path: Album3, album_name: "Demon Days", artist_name: "Gorillaz", year : '2005', genre: "Alternative Hip Hop", price: "$10" }
 ];
 
 function CatalogPreview() {
@@ -22,6 +22,7 @@ function CatalogPreview() {
                         img_path={album.img_path}
                         album_name={album.album_name}
                         artist_name={album.artist_name}
+                        year={album.year}
                         genre={album.genre}
                         price={album.price}
                     />

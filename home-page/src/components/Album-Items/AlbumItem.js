@@ -2,7 +2,7 @@ import React from 'react';
 import './AlbumItem.css';
 import PrimaryButton from '../Catalog-Page/PrimaryButton';
 
-function AlbumItem({ img_path, album_name, artist_name, genre, price }) {
+function AlbumItem({ img_path, album_name, artist_name, year, genre, price }) {
     return (
         <div className="catalog-item">
             <div className="item-image">
@@ -10,6 +10,7 @@ function AlbumItem({ img_path, album_name, artist_name, genre, price }) {
             </div>
             <h3>{album_name}</h3>
             <p>{artist_name}</p>
+            <p>{year}</p>
             <p>{genre}</p>
             <p className="price">{price}</p>
             <PrimaryButton onClick={""}>View More</PrimaryButton>
