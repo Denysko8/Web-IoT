@@ -1,5 +1,3 @@
-# 6-rd lab
+# 8-th lab
 
-First lab to use **React**.
-
-Five components and usage of map function are here as well :D
+Searching, sorting and filtering are here all at once!
