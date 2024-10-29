@@ -1,5 +1,3 @@
-# 6-rd lab
+# 7-rd lab
 
-First lab to use **React**.
-
-Five components and usage of map function are here as well :D
+Creation of Catalog Page.
