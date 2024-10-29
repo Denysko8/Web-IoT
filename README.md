@@ -1,4 +1,4 @@
-# 6-rd lab
+# 6-th lab
 
 First lab to use **React**.
 
