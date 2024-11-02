@@ -1,5 +1,3 @@
-# 6-rd lab
+# 9-rd lab
 
-First lab to use **React**.
-
-Five components and usage of map function are here as well :D
+Creation of server and making of requests using **axios**.
