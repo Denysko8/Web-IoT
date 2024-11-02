@@ -1,0 +1,42 @@
+.register-page {
+    padding: 20px;
+    max-width: 400px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.register-page h2 {
+    margin-bottom: 20px;
+}
+
+.register-page .form-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.register-page .form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.register-page .form-group input {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+.register-page button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    display: block;
+    margin: 20px auto;
+}
+
+.register-page button:hover {
+    background-color: #0056b3;
+}
