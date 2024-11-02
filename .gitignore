@@ -13,6 +13,9 @@ node_modules/
 # Output of 'npm pack'
 *.tgz
 
+# Album data base
+albums.db
+
 # dotenv environment variables file
 .env
 

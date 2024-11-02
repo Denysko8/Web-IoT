@@ -11,7 +11,7 @@ function CatalogPreview({ album_data_preview }) {
                     <AlbumItem
                         key={album.id}
                         id={album.id}
-                        img_path={album.img_path}
+                        img_path={`http://localhost:3002${album.img_path}`}
                         album_name={album.album_name}
                         artist_name={album.artist_name}
                         year={album.year}

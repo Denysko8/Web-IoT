@@ -1,0 +1,42 @@
+/* src/components/Spinner.css */
+
+.loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    /* Full height for centering */
+    background-color: rgba(255, 255, 255, 0.8);
+    /* Optional background color */
+    position: absolute;
+    /* Absolute positioning if needed */
+    width: 100%;
+    z-index: 999;
+    /* Ensure it is above other content */
+}
+
+.loader::before {
+    content: '';
+    width: 50px;
+    /* Spinner width */
+    height: 50px;
+    /* Spinner height */
+    border: 5px solid rgba(0, 0, 0, 0.2);
+    /* Light border color */
+    border-top: 5px solid #3498db;
+    /* Spinner color */
+    border-radius: 50%;
+    /* Circle shape */
+    animation: spin 1s linear infinite;
+    /* Animation */
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}

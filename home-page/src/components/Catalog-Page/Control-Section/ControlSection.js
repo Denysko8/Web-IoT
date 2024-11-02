@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './ControlSection.css';
-import Select from '../Select'; // Make sure to import the Select component
+import Select from '../Select';
 
 const ControlSection = ({ 
     searchValue, 
@@ -29,7 +29,7 @@ const ControlSection = ({
                 value={searchValue}
                 onChange={onSearchChange}
             />
-            <div className="sorting-section">
+            {/* <div className="sorting-section">
                 <span>Sort by:</span>
                 <button 
                     className={`sort-button ${currentSort === 'year' ? 'active' : ''}`} 
@@ -43,7 +43,7 @@ const ControlSection = ({
                 >
                     price
                 </button>
-            </div>
+            </div> */}
             <div className="filter-section">
                 <span>Filter by Genre:</span>
                 <Select 
