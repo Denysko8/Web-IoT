@@ -7,22 +7,27 @@ import './CartPage.css'; // Import the CSS file
 const CartPage = () => {
     const cartItems = useSelector(state => state.cart.items);
     const dispatch = useDispatch();
-     const navigate = useNavigate();
+    const navigate = useNavigate();
+    const user = localStorage.getItem('user');
 
     useEffect(() => {
-        const storedCartItems = JSON.parse(localStorage.getItem('cartItems')) || [];        
-        if (Array.isArray(storedCartItems) && storedCartItems.length) {
-            dispatch(setCartItems(storedCartItems));
+        if (user) {
+            const storedCartItems = JSON.parse(localStorage.getItem(`cartItems_${user}`)) || [];
+            if (Array.isArray(storedCartItems) && storedCartItems.length) {
+                dispatch(setCartItems(storedCartItems));
+            }
         }
-    }, [dispatch]);
+    }, [dispatch, user]);
 
     useEffect(() => {
-        console.log('Saving cart items to localStorage:', cartItems);
-        localStorage.setItem('cartItems', JSON.stringify(cartItems));
+        if (user) {
+            console.log('Saving cart items to localStorage:', cartItems);
+            localStorage.setItem(`cartItems_${user}`, JSON.stringify(cartItems));
 
-        const savedItems = localStorage.getItem('cartItems');
-        console.log('Current items in localStorage:', savedItems);
-    }, [cartItems]);
+            const savedItems = localStorage.getItem(`cartItems_${user}`);
+            console.log('Current items in localStorage:', savedItems);
+        }
+    }, [cartItems, user]);
 
     const handleRemoveFromCart = (id) => {
         dispatch(removeFromCart(id));

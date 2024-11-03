@@ -1,16 +1,26 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setCartItems } from '../../../actions/cartActions';
+import { loadCartFromStorage } from '../../../cartUtils';
 import './LoginPage.css';
 
 const LoginPage = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const handleLogin = (e) => {
         e.preventDefault();
-        // Mock login response
+        
+        // Store user email
         localStorage.setItem('user', email);
+        
+        // Load user's cart from storage
+        const userCart = loadCartFromStorage(email);
+        dispatch(setCartItems(userCart));
+        
         navigate('/');
     };
 

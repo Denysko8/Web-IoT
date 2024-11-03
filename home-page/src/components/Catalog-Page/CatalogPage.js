@@ -3,6 +3,7 @@ import ControlSection from './Control-Section/ControlSection';
 import CatalogSection from './Catalog-Section/CatalogSection';
 import Loader from '../Loader/loader';
 import { fetchAlbums } from '../../api';
+import { addToCart, getCart } from '../../cartUtils'; // Import your cart utilities
 
 const CatalogPage = () => {
     const genreOptions = ['All genres', 'Rock', 'Metal', 'Hip Hop'];
@@ -10,12 +11,13 @@ const CatalogPage = () => {
 
     const [searchValue, setSearchValue] = useState('');
     const [sortCriterion, setSortCriterion] = useState('');
-    const [sortDirection, setSortDirection] = useState('asc'); // Add this state
+    const [sortDirection, setSortDirection] = useState('asc');
     const [selectedGenre, setSelectedGenre] = useState('All genres');
     const [selectedDecade, setSelectedDecade] = useState('All decades');
     const [albums, setAlbums] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [cart, setCart] = useState([]); // State for the cart
 
     useEffect(() => {
         const loadAlbums = async () => {
@@ -39,13 +41,17 @@ const CatalogPage = () => {
         loadAlbums();
     }, [searchValue, selectedGenre, selectedDecade, sortCriterion]);
 
+    useEffect(() => {
+        const savedCart = getCart(); // Load cart on mount
+        setCart(savedCart);
+    }, []);
+
     const handleSearchChange = (event) => {
         setSearchValue(event.target.value);
     };
 
     const handleSortChange = (criterion) => {
         if (criterion === sortCriterion) {
-            // If clicking the same criterion, toggle direction or clear sort
             if (sortDirection === 'desc') {
                 setSortDirection('asc');
             } else {
@@ -53,7 +59,6 @@ const CatalogPage = () => {
                 setSortDirection('asc');
             }
         } else {
-            // If clicking a new criterion, set it with ascending direction
             setSortCriterion(criterion);
             setSortDirection('desc');
         }
@@ -65,6 +70,11 @@ const CatalogPage = () => {
 
     const handleDecadeChange = (event) => {
         setSelectedDecade(event.target.value);
+    };
+
+    const handleAddToCart = (album) => {
+        addToCart(album); // Add album to cart
+        setCart(prevCart => [...prevCart, album]); // Update cart state
     };
 
     return (
@@ -85,7 +95,10 @@ const CatalogPage = () => {
             ) : error ? (
                 <div className="error-message">{error}</div>
             ) : (
-                <CatalogSection album_data={albums} />
+                <CatalogSection 
+                    album_data={albums} 
+                    onAddToCart={handleAddToCart} // Pass the handler down to CatalogSection
+                />
             )}
         </div>
     );
