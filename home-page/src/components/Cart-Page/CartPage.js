@@ -1,43 +1,82 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { removeFromCart } from '../../actions/cartActions';
-import './CartPage.css'; // Import the CSS file
+import { removeFromCart, updateCartItemAmount, setCartItems } from '../../actions/cartActions';
+import './CartPage.css';
 
 const CartPage = () => {
-    const cartItems = useSelector(state => {
-        console.log('Current Redux State:', state);
-        return state.cart.items;
-    });
+    const cartItems = useSelector(state => state.cart.items);
     const dispatch = useDispatch();
 
-    console.log('CartPage rendered with items:', cartItems);
+    useEffect(() => {
+        const storedCartItems = JSON.parse(localStorage.getItem('cartItems')) || [];        
+        if (Array.isArray(storedCartItems) && storedCartItems.length) {
+            dispatch(setCartItems(storedCartItems));
+        }
+    }, [dispatch]);
+
+    useEffect(() => {
+        console.log('Saving cart items to localStorage:', cartItems);
+        localStorage.setItem('cartItems', JSON.stringify(cartItems));
+
+        const savedItems = localStorage.getItem('cartItems');
+        console.log('Current items in localStorage:', savedItems);
+    }, [cartItems]);
 
     const handleRemoveFromCart = (id) => {
-        console.log('Removing from cart:', id);
         dispatch(removeFromCart(id));
     };
+
+    const handleAmountChange = (id, amount) => {
+        dispatch(updateCartItemAmount(id, parseInt(amount, 10)));
+    };
+
+    const calculateTotalCost = () => {
+        return cartItems.reduce((total, item) => {
+            const basePrice = parseFloat(item.price.replace('$', ''));
+            const adjustedPrice = item.colorPlates ? basePrice + 5 : basePrice;
+            return total + (adjustedPrice * item.amount);
+        }, 0);
+    };
+
+    const totalCost = calculateTotalCost();
 
     return (
         <div className="cart-page">
             <h2>Your Cart</h2>
             {cartItems.length === 0 ? (
-                <p class="when-empty">Your cart is empty</p>
+                <p className="when-empty">Your cart is empty</p>
             ) : (
-                <ul>
-                    {cartItems.map(item => (
-                        <li key={item.id}>
-                            <img src={`http://localhost:3002${item.img_path}`} alt={item.album_name} />
-                            <div>
-                                <h3>{item.album_name}</h3>
-                                <p>{item.artist_name}</p>
-                                <p>{item.year}</p>
-                                <p>{item.genre}</p>
-                                <p>{item.price}</p>
-                                <button onClick={() => handleRemoveFromCart(item.id)}>Remove</button>
-                            </div>
-                        </li>
-                    ))}
-                </ul>
+                <>
+                    <ul>
+                        {cartItems.map(item => {
+                            const basePrice = parseFloat(item.price.replace('$', ''));
+                            const adjustedPrice = item.colorPlates ? basePrice + 5 : basePrice;
+                            const totalPrice = adjustedPrice * item.amount;
+                            return (
+                                <li key={item.id}>
+                                    <img src={`http://localhost:3002${item.img_path}`} alt={item.album_name} />
+                                    <div className="cart-item-details">
+                                        <h3>{item.album_name} - {item.artist_name}</h3>
+                                        <p>Cost: ${totalPrice.toFixed(2)}</p>
+                                        <p>Color Plates: {item.colorPlates ? 'Yes' : 'No'}</p>
+                                        <label htmlFor={`amount-${item.id}`}>Amount:</label>
+                                        <input
+                                            type="number"
+                                            id={`amount-${item.id}`}
+                                            value={item.amount}
+                                            onChange={(e) => handleAmountChange(item.id, e.target.value)}
+                                            min="1"
+                                        />
+                                    </div>
+                                    <button className="remove-button" onClick={() => handleRemoveFromCart(item.id)}>Remove</button>
+                                </li>
+                            );
+                        })}
+                    </ul>
+                    <div className="total-cost">
+                        <h3>Total cost: ${totalCost.toFixed(2)}</h3>
+                    </div>
+                </>
             )}
         </div>
     );

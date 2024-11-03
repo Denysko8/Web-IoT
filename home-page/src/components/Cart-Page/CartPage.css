@@ -22,6 +22,7 @@
 .cart-page li {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     margin-bottom: 20px;
     padding: 10px;
     border: 1px solid #ddd;
@@ -37,7 +38,7 @@
     border-radius: 5px;
 }
 
-.cart-page li div {
+.cart-page .cart-item-details {
     flex: 1;
 }
 
@@ -49,7 +50,17 @@
     margin: 5px 0;
 }
 
-.cart-page li button {
+.cart-page li label {
+    margin-right: 10px;
+}
+
+.cart-page li input {
+    width: 25px;
+    padding: 5px;
+    text-align: center;
+}
+
+.cart-page .remove-button {
     background-color: #ff4d4d;
     color: white;
     border: none;
@@ -57,8 +68,14 @@
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s;
+    margin-top: 0;
 }
 
-.cart-page li button:hover {
+.cart-page .remove-button:hover {
     background-color: #ff1a1a;
+}
+
+.total-cost {
+    text-align: right;
+    margin-top: 20px;
 }
