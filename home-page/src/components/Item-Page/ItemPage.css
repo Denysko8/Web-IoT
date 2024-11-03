@@ -7,7 +7,7 @@
     border: 1px solid #ddd;
     border-radius: 5px;
     max-width: 600px;
-    max-height: 900px;
+    max-height: 1000px;
     margin: 20px auto;
     gap: 2px;
     /* This will create spacing between the child elements */
@@ -28,6 +28,35 @@
     color: #333;
 }
 
+hr {
+    width: 80%;
+    margin: 20px auto;
+}
+
+.amount-container,
+.toggle-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.amount-container label,
+.toggle-container label {
+    margin-right: 10px;
+}
+
+.amount-container input {
+    width: 25px;
+    padding: 5px;
+    text-align: center;
+}
+
+.toggle-container input {
+    width: 20px;
+    height: 20px;
+}
+
 /* Remove margin from .buy-now and use flex properties instead */
 .item-page button {
     font-size: large;
@@ -36,4 +65,20 @@
     /* This pushes the button to the bottom of the flex container */
     margin-bottom: 10px;
     /* Keep this if you want spacing below the button */
+}
+
+.buy-now {
+    display: block;
+    margin: 0 auto;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.buy-now:hover {
+    background-color: #0056b3;
 }
