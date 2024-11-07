@@ -33,6 +33,10 @@ const CartPage = () => {
         dispatch(removeFromCart(id));
     };
 
+    const handleCheckout = () => {
+        navigate('/checkout');
+    };
+
     const handleAmountChange = (id, amount) => {
         dispatch(updateCartItemAmount(id, parseInt(amount, 10)));
     };
@@ -88,6 +92,8 @@ const CartPage = () => {
                     <div className="total-cost">
                         <h3>Total cost: ${totalCost.toFixed(2)}</h3>
                     </div>
+                    <button className="buy-button" onClick={handleCheckout}>Buy</button>
+    
                 </>
             )}
         </div>

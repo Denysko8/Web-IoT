@@ -27,17 +27,21 @@ const RegisterPage = () => {
     };
 
     const handleRegister = (e) => {
-        e.preventDefault();
-        
-        // Check email format before proceeding
-        if (!validateEmail(email)) {
-            setEmailError('Please enter a valid email address.');
-            return;
-        }
+    e.preventDefault();
 
-        // Mock registration response
-        localStorage.setItem('user', email);
-        navigate('/');
+    // Check email format before proceeding
+    if (!validateEmail(email)) {
+        setEmailError('Please enter a valid email address.');
+        return;
+    }
+
+    let registeredUsers = JSON.parse(localStorage.getItem('users')) || [];
+
+    registeredUsers.push(email);
+
+    localStorage.setItem('users', JSON.stringify(registeredUsers));
+
+    navigate('/');
     };
 
     return (

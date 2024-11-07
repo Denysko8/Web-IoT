@@ -31,22 +31,26 @@ const LoginPage = () => {
     };
 
     const handleLogin = (e) => {
-        e.preventDefault();
-        
-        // Check email format before proceeding
-        if (!validateEmail(email)) {
-            setEmailError('Please enter a valid email address.');
-            return;
-        }
+    e.preventDefault();
 
-        // Store user email
-        localStorage.setItem('user', email);
-        
-        // Load user's cart from storage
-        const userCart = loadCartFromStorage(email);
-        dispatch(setCartItems(userCart));
-        
-        navigate('/');
+    if (!validateEmail(email)) {
+        setEmailError('Please enter a valid email address.');
+        return;
+    }
+
+    const registeredUsers = JSON.parse(localStorage.getItem('users')) || [];
+
+    if (!registeredUsers.includes(email)) {
+        setEmailError('This email is not registered.');
+        return;
+    }
+
+    localStorage.setItem('user', email);
+
+    const userCart = loadCartFromStorage(email);
+    dispatch(setCartItems(userCart));
+
+    navigate('/');
     };
 
     return (

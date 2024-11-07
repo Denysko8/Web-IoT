@@ -14,7 +14,7 @@ const CheckoutPage = () => {
             .required('Last name is required'),
         email: Yup.string()
             .email('Invalid email address')
-            .required('Email is required'),
+            .matches(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, 'Invalid email address'),   
         phoneNumber: Yup.string()
             .matches(/^[0-9]+$/, 'Must be only digits') // RegEx validation
             .min(10, 'Must be exactly 10 digits')
