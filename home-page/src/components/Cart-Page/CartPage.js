@@ -33,10 +33,6 @@ const CartPage = () => {
         dispatch(removeFromCart(id));
     };
 
-    const handleCheckout = () => {
-        navigate('/checkout');
-    };
-
     const handleAmountChange = (id, amount) => {
         dispatch(updateCartItemAmount(id, parseInt(amount, 10)));
     };
@@ -51,6 +47,10 @@ const CartPage = () => {
 
     const totalCost = calculateTotalCost();
 
+    const parsePrice = (price) => parseFloat(price.replace('$', ''));
+    const getAdjustedPrice = (basePrice, hasColorPlates) => hasColorPlates ? basePrice + 5 : basePrice;
+    const calculateTotalPrice = (adjustedPrice, amount) => adjustedPrice * amount;
+
     return (
         <div className="cart-page">
             <h2>Your Cart</h2>
@@ -60,9 +60,10 @@ const CartPage = () => {
                 <>
                     <ul>
                         {cartItems.map(item => {
-                            const basePrice = parseFloat(item.price.replace('$', ''));
-                            const adjustedPrice = item.colorPlates ? basePrice + 5 : basePrice;
-                            const totalPrice = adjustedPrice * item.amount;
+                            const basePrice = parsePrice(item.price);
+                            const adjustedPrice = getAdjustedPrice(basePrice, item.colorPlates);
+                            const totalPrice = calculateTotalPrice(adjustedPrice, item.amount);
+
                             return (
                                 <li key={item.id}>
                                     <img src={`http://localhost:3002${item.img_path}`} alt={item.album_name} />
