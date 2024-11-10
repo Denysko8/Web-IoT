@@ -12,7 +12,8 @@ const ItemPage = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [amount, setAmount] = useState(1);
-    const [colorPlates, setColorPlates] = useState(false);
+    const [color, setColor] = useState('standard');
+    const [notification, setNotification] = useState('');
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -32,12 +33,15 @@ const ItemPage = () => {
     }, [id]);
 
     const handleAddToCart = () => {
-        const albumWithDetails = { ...album, amount, colorPlates };
+        const albumWithDetails = { ...album, amount, color };
         console.log('Dispatching ADD_TO_CART with album:', albumWithDetails);
         dispatch(addToCart(albumWithDetails));
+        setNotification('Item added to cart!');
+        setTimeout(() => setNotification(''), 3000); // Clear notification after 3 seconds
     };
 
-    const adjustedPrice = album ? (colorPlates ? parseFloat(album.price.replace('$', '')) + 5 : parseFloat(album.price.replace('$', ''))) : 0;
+    const adjustedPrice = album ? parseFloat(album.price.replace('$', '')) : 0;
+    const colorPriceAdjustment = color === 'colored' ? 5 : color === 'exclusive-design' ? 10 : 0;
     const totalCost = adjustedPrice * amount;
 
     if (loading) return <div>Loading...</div>;
@@ -63,17 +67,21 @@ const ItemPage = () => {
                     min="1"
                 />
             </div>
-            <div className="toggle-container">
-                <label htmlFor="colorPlates">Color Plates:</label>
-                <input
-                    type="checkbox"
-                    id="colorPlates"
-                    checked={colorPlates}
-                    onChange={(e) => setColorPlates(e.target.checked)}
-                />
+            <div className="color-container">
+                <label htmlFor="color">Color:</label>
+                <select
+                    id="color"
+                    value={color}
+                    onChange={(e) => setColor(e.target.value)}
+                >
+                    <option value="standard">Standard (Black)</option>
+                    <option value="colored">Colored (Limited Edition)</option>
+                    <option value="exclusive-design">Marble (Exclusive design)</option>
+                </select>
             </div>
             <p><strong>Final cost: ${totalCost.toFixed(2)}</strong></p>
             <PrimaryButton className="buy-now" onClick={handleAddToCart}>Buy now!</PrimaryButton>
+            {notification && <div className="notification">{notification}</div>}
         </div>
     );
 };

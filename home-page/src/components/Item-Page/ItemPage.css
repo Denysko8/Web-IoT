@@ -34,7 +34,7 @@ hr {
 }
 
 .amount-container,
-.toggle-container {
+.color-container {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -42,13 +42,19 @@ hr {
 }
 
 .amount-container label,
-.toggle-container label {
+.color-container label {
     margin-right: 10px;
 }
 
-.amount-container input {
+.amount-container input{
     width: 25px;
     padding: 5px;
+    text-align: center;
+}
+
+.color-container select{
+    width: 150px;
+    padding: 0px;
     text-align: center;
 }
 
@@ -81,4 +87,14 @@ hr {
 
 .buy-now:hover {
     background-color: #0056b3;
+}
+
+.notification {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #dff0d8;
+    color: #000000;
+    border: 1px solid #d6e9c6;
+    border-radius: 5px;
+    text-align: center;
 }
