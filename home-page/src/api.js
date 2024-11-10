@@ -4,6 +4,7 @@ const API_URL = 'http://localhost:3002'; // Ensure port is set to 3002
 
 export const fetchPreviewAlbums = async () => {
     try {
+        // headers = `Authorization: Bearer ${localStorage.getItem('token')}`;
         const response = await axios.get(`${API_URL}/preview`);
         return response.data;
     } catch (error) {

@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const path = require('path');
 const fs = require('fs');
+const { userInfo } = require('os');
 const app = express();
 const port = 3002; // Ensure port is set to 3002
 
@@ -17,6 +18,22 @@ if (!fs.existsSync(imagesPath)) {
 // Middleware
 app.use(cors());
 app.use(express.json());
+
+
+// auth = (req, res, next) => {
+//     jwt.verify(req.headers.token, 'secret'
+//     req.USER = 
+//     next()
+// };
+
+// app.use(auth);
+
+// app.post('/login', (req, res) => {
+//     const { email, password } = req.body;
+
+//     const token = jwt.sign({ email,   userInfo})
+
+//     res.json({ token})
 
 // Serve static files from the images directory
 app.use('/images', express.static(imagesPath));

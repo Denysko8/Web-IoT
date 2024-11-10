@@ -16,7 +16,7 @@ const CheckoutPage = () => {
             .email('Invalid email address')
             .matches(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, 'Invalid email address'),   
         phoneNumber: Yup.string()
-            .matches(/^[0-9]+$/, 'Must be only digits') // RegEx validation
+            .matches(/^[0-9]+$/, 'Must be only digits') 
             .min(10, 'Must be exactly 10 digits')
             .max(10, 'Must be exactly 10 digits')
             .required('Phone number is required'),
@@ -27,7 +27,6 @@ const CheckoutPage = () => {
     const handleSubmit = (values, { setSubmitting }) => {
         console.log('Form values:', values);
         setSubmitting(false);
-        // Redirect to success page
         window.location.href = '/success';
     };
 
