@@ -29,31 +29,32 @@ const CartPage = () => {
         }
     }, [cartItems, user]);
 
-    const handleRemoveFromCart = (id) => {
-        dispatch(removeFromCart(id));
+    const handleRemoveFromCart = (cartItemId) => {
+        dispatch(removeFromCart(cartItemId));
     };
 
     const handleCheckout = () => {
         navigate('/checkout');
     };
 
-    const handleAmountChange = (id, amount) => {
-        dispatch(updateCartItemAmount(id, parseInt(amount, 10)));
+    const handleAmountChange = (cartItemId, amount) => {
+        dispatch(updateCartItemAmount(cartItemId, parseInt(amount, 10)));
+    };
+
+    const handleImageClick = (id) => {
+        navigate(`/item/${id}`);
     };
 
     const calculateTotalCost = () => {
         return cartItems.reduce((total, item) => {
             const basePrice = parseFloat(item.price.replace('$', ''));
-            const adjustedPrice = item.colorPlates ? basePrice + 5 : basePrice;
+            const colorPriceAdjustment = item.color === 'colored' ? 5 : item.color === 'exclusive-design' ? 10 : 0;
+            const adjustedPrice = basePrice + colorPriceAdjustment;
             return total + (adjustedPrice * item.amount);
         }, 0);
     };
 
     const totalCost = calculateTotalCost();
-
-    const parsePrice = (price) => parseFloat(price.replace('$', ''));
-    const getAdjustedPrice = (basePrice, hasColorPlates) => hasColorPlates ? basePrice + 5 : basePrice;
-    const calculateTotalPrice = (adjustedPrice, amount) => adjustedPrice * amount;
 
     return (
         <div className="cart-page">
@@ -64,27 +65,33 @@ const CartPage = () => {
                 <>
                     <ul>
                         {cartItems.map(item => {
-                            const basePrice = parsePrice(item.price);
-                            const adjustedPrice = getAdjustedPrice(basePrice, item.colorPlates);
-                            const totalPrice = calculateTotalPrice(adjustedPrice, item.amount);
+                            const basePrice = parseFloat(item.price.replace('$', ''));
+                            const colorPriceAdjustment = item.color === 'colored' ? 5 : item.color === 'exclusive-design' ? 10 : 0;
+                            const adjustedPrice = basePrice + colorPriceAdjustment;
+                            const totalPrice = adjustedPrice * item.amount;
 
                             return (
-                                <li key={item.id}>
-                                    <img src={`http://localhost:3002${item.img_path}`} alt={item.album_name} />
+                                <li key={item.cartItemId}>
+                                    <img
+                                        src={`http://localhost:3002${item.img_path}`}
+                                        alt={item.album_name}
+                                        onClick={() => handleImageClick(item.id)}
+                                        className="clickable-image"
+                                    />
                                     <div className="cart-item-details">
                                         <h3>{item.album_name} - {item.artist_name}</h3>
                                         <p>Cost: ${totalPrice.toFixed(2)}</p>
-                                        <p>Color Plates: {item.colorPlates ? 'Yes' : 'No'}</p>
-                                        <label htmlFor={`amount-${item.id}`}>Amount:</label>
+                                        <p>Color: {item.color}</p>
+                                        <label htmlFor={`amount-${item.cartItemId}`}>Amount:</label>
                                         <input
                                             type="number"
-                                            id={`amount-${item.id}`}
+                                            id={`amount-${item.cartItemId}`}
                                             value={item.amount}
-                                            onChange={(e) => handleAmountChange(item.id, e.target.value)}
+                                            onChange={(e) => handleAmountChange(item.cartItemId, e.target.value)}
                                             min="1"
                                         />
                                     </div>
-                                    <button className="remove-button" onClick={() => handleRemoveFromCart(item.id)}>Remove</button>
+                                    <button className="remove-button" onClick={() => handleRemoveFromCart(item.cartItemId)}>Remove</button>
                                 </li>
                             );
                         })}
@@ -93,7 +100,6 @@ const CartPage = () => {
                         <h3>Total cost: ${totalCost.toFixed(2)}</h3>
                     </div>
                     <button className="buy-button" onClick={handleCheckout}>Buy</button>
-    
                 </>
             )}
         </div>

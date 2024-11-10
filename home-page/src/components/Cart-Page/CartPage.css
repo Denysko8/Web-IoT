@@ -36,6 +36,7 @@
     object-fit: cover;
     margin-right: 20px;
     border-radius: 5px;
+    cursor: pointer;
 }
 
 .cart-page .cart-item-details {
@@ -81,7 +82,7 @@
 }
 
 .buy-button {
-    background-color: #007bff;
+    background-color: #00b21b;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -94,5 +95,5 @@
 }
 
 .buy-button:hover {
-    background-color: #0056b3;
+    background-color: #00c81e;
 }

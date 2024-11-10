@@ -2,7 +2,6 @@ const express = require('express');
 const cors = require('cors');
 const path = require('path');
 const fs = require('fs');
-const { userInfo } = require('os');
 const app = express();
 const port = 3002; // Ensure port is set to 3002
 
@@ -19,45 +18,30 @@ if (!fs.existsSync(imagesPath)) {
 app.use(cors());
 app.use(express.json());
 
-
-// auth = (req, res, next) => {
-//     jwt.verify(req.headers.token, 'secret'
-//     req.USER = 
-//     next()
-// };
-
-// app.use(auth);
-
-// app.post('/login', (req, res) => {
-//     const { email, password } = req.body;
-
-//     const token = jwt.sign({ email,   userInfo})
-
-//     res.json({ token})
-
 // Serve static files from the images directory
 app.use('/images', express.static(imagesPath));
 
 // Album data
 const previewAlbums = [
-    { id: 1, img_path: '/images/in_rainbows.png', album_name: "In Rainbows", artist_name: "Radiohead", year : '2007', genre: "Art Rock", price: "$20" },
-    { id: 2, img_path: '/images/dummy.jpg', album_name: "Dummy", artist_name: "Portishead", year : '1994', genre: "Trip Hop", price: "$15" },
-    { id: 3, img_path: '/images/demon_days.jpg', album_name: "Demon Days", artist_name: "Gorillaz", year: '2005', genre: "Alternative Hip Hop", price: "$10" },
-    { id: 4, img_path: '/images/toxicity.jpg', album_name: "Toxicity", artist_name: "System of a Down", year: '2001', genre: "Alternative Metal", price: "$20" },
-    { id: 5, img_path: '/images/nevermind.jpg', album_name: "Nevermind", artist_name: "Nirvana", year: '1991', genre: "Grunge", price: "$15" },
-    { id: 6, img_path: '/images/hk.jpg', album_name: "Hollow Knight OST", artist_name: "Christopher Larkin", year: '2017', genre: "Cinematic Classical", price: "$25" },
+    { id: 1, img_path: '/images/ogwau.jpg', album_name: 'Only God Was Above Us', artist_name: 'The Vampire Weekend', year: '2024', genre: 'Indie Rock', price: '$30' },
+    { id: 2, img_path: '/images/paranoid.png', album_name: 'Paranoid', artist_name: 'Black Sabbath', year: '1970', genre: 'Heavy Metal', price: '$25' },
+    { id: 3, img_path: '/images/blackstar.jpg', album_name: 'Blackstar', artist_name: 'David Bowie', year: '2016', genre: 'Jazz-Rock', price: '$25' },
+    { id: 4, img_path: '/images/filosofem.jpg', album_name: 'Filosofem', artist_name: 'Burzum', year: '1996', genre: 'Black Metal', price: '$20' },
+    { id: 5, img_path: '/images/ksg.jpg', album_name: 'Kids See Ghosts', artist_name: 'Kid Cudi & Kanye West', year: '2018', genre: 'Experimental Hip Hop', price: '$25' },
+    { id: 6, img_path: '/images/tdsotm.png', album_name: 'The Dark Side Of The Moon', artist_name: 'Pink Floyd', year: '1973', genre: 'Progressive Rock', price: '$20' },
 ];
 
 const fullAlbums = [
-    { id: 7, img_path: '/images/ogwau.jpg', album_name: 'Only God Was Above Us', artist_name: 'The Vampire Weekend', year: '2024', genre: 'Indie Rock', price: '$30' },
-    { id: 8, img_path: '/images/paranoid.png', album_name: 'Paranoid', artist_name: 'Black Sabbath', year: '1970', genre: 'Heavy Metal', price: '$25' },
-    { id: 9, img_path: '/images/blackstar.jpg', album_name: 'Blackstar', artist_name: 'David Bowie', year: '2016', genre: 'Jazz-Rock', price: '$25' },
-    { id: 10, img_path: '/images/filosofem.jpg', album_name: 'Filosofem', artist_name: 'Burzum', year: '1996', genre: 'Black Metal', price: '$20' },
-    { id: 11, img_path: '/images/ksg.jpg', album_name: 'Kids See Ghosts', artist_name: 'Kid Cudi & Kanye West', year: '2018', genre: 'Experimental Hip Hop', price: '$25' },
-    { id: 12, img_path: '/images/tdsotm.png', album_name: 'The Dark Side Of The Moon', artist_name: 'Pink Floyd', year: '1973', genre: 'Progressive Rock', price: '$20' },
+    { id: 7, img_path: '/images/in_rainbows.png', album_name: "In Rainbows", artist_name: "Radiohead", year : '2007', genre: "Art Rock", price: "$40" },
+    { id: 8, img_path: '/images/dummy.jpg', album_name: "Dummy", artist_name: "Portishead", year : '1994', genre: "Trip Hop", price: "$35" },
+    { id: 9, img_path: '/images/demon_days.jpg', album_name: "Demon Days", artist_name: "Gorillaz", year: '2005', genre: "Alternative Hip Hop", price: "$10" },
+    { id: 10, img_path: '/images/toxicity.jpg', album_name: "Toxicity", artist_name: "System of a Down", year: '2001', genre: "Alternative Metal", price: "$20" },
+    { id: 11, img_path: '/images/nevermind.jpg', album_name: "Nevermind", artist_name: "Nirvana", year: '1991', genre: "Grunge", price: "$15" },
+    { id: 12, img_path: '/images/hk.jpg', album_name: "Hollow Knight OST", artist_name: "Christopher Larkin", year: '2017', genre: "Cinematic Classical", price: "$25" },
 ];
 
 // API endpoints
+
 app.get('/catalog', (req, res) => {
     try {
         console.log('Received request for /catalog');
@@ -74,9 +58,15 @@ app.get('/catalog', (req, res) => {
         }
 
         if (genre && genre !== 'All genres') {
-            filteredAlbums = filteredAlbums.filter(album => 
-                album.genre.includes(genre)
-            );
+            filteredAlbums = filteredAlbums.filter(album => {
+                if (genre === 'Rock') {
+                    return album.genre.includes('Rock') || album.genre.includes('Grunge');
+                } else if (genre === 'Other') {
+                    return album.genre.includes('Cinematic Classical');
+                } else {
+                    return album.genre.includes(genre);
+                }
+            });
         }
 
         if (decade && decade !== 'All decades') {
@@ -142,7 +132,6 @@ app.get('/preview/:id', (req, res) => {
         res.status(500).json({ error: 'Internal server error' });
     }
 });
-
 
 // Error handling middleware
 app.use((err, req, res, next) => {

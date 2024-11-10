@@ -42,7 +42,7 @@ const ItemPage = () => {
 
     const adjustedPrice = album ? parseFloat(album.price.replace('$', '')) : 0;
     const colorPriceAdjustment = color === 'colored' ? 5 : color === 'exclusive-design' ? 10 : 0;
-    const totalCost = adjustedPrice * amount;
+    const totalCost = (adjustedPrice + colorPriceAdjustment) * amount;
 
     if (loading) return <div>Loading...</div>;
     if (error) return <div>Error: {error}</div>;

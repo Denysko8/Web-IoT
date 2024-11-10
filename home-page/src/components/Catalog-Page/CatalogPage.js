@@ -6,7 +6,7 @@ import { fetchAlbums } from '../../api';
 import { addToCart, getCart } from '../../cartUtils'; // Import your cart utilities
 
 const CatalogPage = () => {
-    const genreOptions = ['All genres', 'Rock', 'Metal', 'Hip Hop'];
+    const genreOptions = ['All genres', 'Rock', 'Trip Hop', 'Metal', 'Hip Hop', 'Other'];
     const decadeOptions = ['All decades', '1970s', '1980s', '1990s', '2000s', '2010s', '2020s'];
 
     const [searchValue, setSearchValue] = useState('');
