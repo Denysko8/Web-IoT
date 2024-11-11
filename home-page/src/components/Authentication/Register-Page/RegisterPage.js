@@ -5,12 +5,13 @@ import './RegisterPage.css';
 const RegisterPage = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
     const [emailError, setEmailError] = useState('');
+    const [passwordError, setPasswordError] = useState('');
+    const [message, setMessage] = useState('');
     const navigate = useNavigate();
 
-    // Function to validate email format
     const validateEmail = (email) => {
-        // Regular expression to check if email contains at least two characters after '.'
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
         return emailRegex.test(email);
     };
@@ -18,7 +19,6 @@ const RegisterPage = () => {
     const handleEmailChange = (e) => {
         const newEmail = e.target.value;
         setEmail(newEmail);
-        // Validate email format
         if (!validateEmail(newEmail)) {
             setEmailError('Please enter a valid email address.');
         } else {
@@ -27,21 +27,31 @@ const RegisterPage = () => {
     };
 
     const handleRegister = (e) => {
-    e.preventDefault();
+        e.preventDefault();
 
-    // Check email format before proceeding
-    if (!validateEmail(email)) {
-        setEmailError('Please enter a valid email address.');
-        return;
-    }
+        if (!validateEmail(email)) {
+            setEmailError('Please enter a valid email address.');
+            return;
+        }
 
-    let registeredUsers = JSON.parse(localStorage.getItem('users')) || [];
+        if (password !== confirmPassword) {
+            setPasswordError('Passwords do not match.');
+            return;
+        }
 
-    registeredUsers.push(email);
+        let registeredUsers = JSON.parse(localStorage.getItem('users')) || [];
+        if (registeredUsers.includes(email)) {
+            setMessage('Already registered');
+            return;
+        }
 
-    localStorage.setItem('users', JSON.stringify(registeredUsers));
+        registeredUsers.push(email);
+        localStorage.setItem('users', JSON.stringify(registeredUsers));
+        
+        let passwordHash = btoa(password);
+        localStorage.setItem(email, passwordHash);
 
-    navigate('/');
+        navigate('/');
     };
 
     return (
@@ -69,6 +79,18 @@ const RegisterPage = () => {
                         required
                     />
                 </div>
+                <div className="form-group">
+                    <label htmlFor="confirmPassword">Confirm Password</label>
+                    <input
+                        type="password"
+                        id="confirmPassword"
+                        value={confirmPassword}
+                        onChange={(e) => setConfirmPassword(e.target.value)}
+                        required
+                    />
+                    {passwordError && <span className="error">{passwordError}</span>}
+                </div>
+                {message && <div className="error">{message}</div>}
                 <button type="submit">Register</button>
             </form>
         </div>

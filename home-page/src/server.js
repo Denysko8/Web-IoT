@@ -4,6 +4,8 @@ const path = require('path');
 const fs = require('fs');
 const app = express();
 const port = 3002; // Ensure port is set to 3002
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 
 // Define images path
 const imagesPath = path.join(__dirname, 'images');
@@ -20,6 +22,20 @@ app.use(express.json());
 
 // Serve static files from the images directory
 app.use('/images', express.static(imagesPath));
+
+const auth = (req, res, next) => {
+    const token = req.headers['authorization'];
+    try {
+        if (!token) return res.status(401).json({ message: 'No token provided' });
+
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        req.user = decoded;
+        next();
+    } catch (err) {
+        res.status(401).json({ message: 'Invalid token' });
+    }
+};
+
 
 // Album data
 const previewAlbums = [
@@ -77,14 +93,6 @@ app.get('/catalog', (req, res) => {
             );
         }
 
-        if (sortBy === 'year') {
-            filteredAlbums.sort((a, b) => {
-                const yearA = parseInt(a.year);
-                const yearB = parseInt(b.year);
-                return sortDirection === 'asc' ? yearA - yearB : yearB - yearA;
-            });
-        }
-
         console.log('Sending response:', filteredAlbums);
         res.json(filteredAlbums);
     } catch (error) {
@@ -132,6 +140,51 @@ app.get('/preview/:id', (req, res) => {
         res.status(500).json({ error: 'Internal server error' });
     }
 });
+
+app.post('/login', async (req, res) => {
+    const { username, password } = req.body;
+    const data = JSON.parse(fs.readFileSync('userCart.json'));
+    const user = data.users.find(u => u.username === username);
+
+    if (user && await bcrypt.compare(password, user.password)) {
+        const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+        res.json({ token });
+    } else {
+        res.status(401).json({ message: 'Invalid credentials' });
+    }
+});
+
+app.get('/cart', auth, (req, res) => {
+    const data = JSON.parse(fs.readFileSync('userCart.json'));
+    const user = data.users.find(u => u.id === req.user.userId);
+
+    if (user) {
+        res.json(user.cart_data);
+    } else {
+        res.status(404).json({ message: 'User or cart not found' });
+    }
+});
+
+app.post('/cart', auth, (req, res) => {
+    const { itemId, quantity } = req.body;
+    const data = JSON.parse(fs.readFileSync('userCart.json'));
+    const user = data.users.find(u => u.id === req.user.userId);
+
+    if (user) {
+        const item = user.cart_data.find(i => i.item_id === itemId);
+        if (item) {
+            item.quantity = quantity;
+        } else {
+            user.cart_data.push({ item_id: itemId, quantity });
+        }
+
+        fs.writeFileSync('userCart.json', JSON.stringify(data, null, 2));
+        res.json({ message: 'Cart updated successfully' });
+    } else {
+        res.status(404).json({ message: 'User not found' });
+    }
+});
+
 
 // Error handling middleware
 app.use((err, req, res, next) => {

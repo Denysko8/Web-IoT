@@ -8,49 +8,43 @@ import './LoginPage.css';
 const LoginPage = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [emailError, setEmailError] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    // Function to validate email format
     const validateEmail = (email) => {
-        // Regular expression to check if email contains at least two characters after '.'
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
         return emailRegex.test(email);
     };
 
-    const handleEmailChange = (e) => {
-        const newEmail = e.target.value;
-        setEmail(newEmail);
-        // Validate email format
-        if (!validateEmail(newEmail)) {
-            setEmailError('Please enter a valid email address.');
-        } else {
-            setEmailError('');
-        }
-    };
-
     const handleLogin = (e) => {
-    e.preventDefault();
+        e.preventDefault();
 
-    if (!validateEmail(email)) {
-        setEmailError('Please enter a valid email address.');
-        return;
-    }
+        if (!validateEmail(email)) {
+            setErrorMessage('Please enter a valid email address.');
+            return;
+        }
 
-    const registeredUsers = JSON.parse(localStorage.getItem('users')) || [];
+        let registeredUsers = JSON.parse(localStorage.getItem('users')) || [];
+        if (!registeredUsers.includes(email)) {
+            setErrorMessage('This email is not registered.');
+            return;
+        }
 
-    if (!registeredUsers.includes(email)) {
-        setEmailError('This email is not registered.');
-        return;
-    }
+        let storedPasswordHash = localStorage.getItem(email);
+        let inputPasswordHash = btoa(password);
+        
+        if (storedPasswordHash !== inputPasswordHash) {
+            setErrorMessage('Incorrect password.');
+            return;
+        }
 
-    localStorage.setItem('user', email);
+        localStorage.setItem('user', email);
 
-    const userCart = loadCartFromStorage(email);
-    dispatch(setCartItems(userCart));
+        const userCart = loadCartFromStorage(email);
+        dispatch(setCartItems(userCart));
 
-    navigate('/');
+        navigate('/');
     };
 
     return (
@@ -63,10 +57,9 @@ const LoginPage = () => {
                         type="email"
                         id="email"
                         value={email}
-                        onChange={handleEmailChange}
+                        onChange={(e) => setEmail(e.target.value)}
                         required
                     />
-                    {emailError && <span className="error">{emailError}</span>}
                 </div>
                 <div className="form-group">
                     <label htmlFor="password">Password</label>
@@ -78,6 +71,7 @@ const LoginPage = () => {
                         required
                     />
                 </div>
+                {errorMessage && <div className="error">{errorMessage}</div>}
                 <button type="submit">Login</button>
             </form>
             <p>

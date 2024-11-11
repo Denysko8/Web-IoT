@@ -20,7 +20,6 @@ export const fetchAlbums = async (filters = {}) => {
         if (filters.searchQuery) params.append('searchQuery', filters.searchQuery);
         if (filters.genre && filters.genre !== 'All genres') params.append('genre', filters.genre);
         if (filters.decade && filters.decade !== 'All decades') params.append('decade', filters.decade);
-        if (filters.sortBy) params.append('sortBy', filters.sortBy);
 
         const config = {
             headers: {
